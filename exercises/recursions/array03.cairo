@@ -22,8 +22,8 @@ func is_increasing{range_check_ptr : felt}(array : felt*, array_len : felt) -> (
         return (1)
     end
 
-    let curr_value = 0
-    let next_value = 0
+    let curr_value = [array]
+    let next_value = [array + 1]
 
     # Do not modify these lines
     let (is_sorted) = is_le(curr_value, next_value)
@@ -41,7 +41,16 @@ end
 
 func is_decreasing{range_check_ptr : felt}(array : felt*, array_len : felt) -> (res : felt):
     # FILL ME
+    if array_len == 0:
+        return (1)
+    end
 
+    if array_len == 1:
+        return (1)
+    end
+
+    let curr_value = [array + 1]
+    let next_value = [array]
     # Do not modify this line
     let (is_sorted) = is_le(curr_value, next_value)
 
@@ -58,6 +67,10 @@ end
 
 func reverse(array : felt*, rev_array : felt*, array_len : felt):
     # FILL ME
+    if array_len == 0:
+        return ()
+    end
+    
     return ()
 end
 
