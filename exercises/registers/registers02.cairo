@@ -1,8 +1,6 @@
 %lang starknet
 from starkware.cairo.common.math_cmp import is_le
 
-# I AM NOT DONE
-
 # TODO
 # Rewrite those functions with a high level syntax
 @external
@@ -57,20 +55,19 @@ func max{range_check_ptr}(a : felt, b : felt) -> (max : felt):
     # else:
     #     return (a)
     # end
-    [ap] = [fp-5]; ap++ # range_check_ptr
+    [ap] = range_check_ptr; ap++ # range_check_ptr
     [ap] = [fp-4]; ap++ # a
     [ap] = [fp-3]; ap++ # b
     call is_le
-    [range_check_ptr] = [ap-2]
+    [ap] = range_check_ptr + 1; ap++ # range_check_ptr
 
-    jmp returnB if [ap-1] != 0 ; ap++
+    jmp returnB if [ap-2] != 0
 
-    returnA:
-    [ap] = Args.a; ap++
+    [ap] = [fp-4]; ap++
     ret
 
     returnB:
-        [ap] = Args.b; ap++
+        [ap] = [fp-3]; ap++
         ret
 end
 
