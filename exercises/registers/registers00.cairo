@@ -1,6 +1,5 @@
 %lang starknet
 
-# I AM NOT DONE
 
 # Ressources
 # https://www.cairo-lang.org/docs/how_cairo_works/cairo_intro.html#registers
@@ -12,6 +11,7 @@
 func ret_42() -> (r : felt):
     # [ap] = 42; ap++
     # ret
+    return (42)
 end
 
 # TODO
@@ -19,6 +19,9 @@ end
 @external
 func ret_0_and_1() -> (zero : felt, one : felt):
     # return (0, 1)
+    [ap] = 0; ap++
+    [ap] = 1; ap++
+    ret
 end
 
 #########

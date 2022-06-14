@@ -12,6 +12,9 @@ func sum_array(array_len : felt, array : felt*) -> (sum : felt):
     # [ap] = 0; ap++
     # call rec_sum_array
     # ret
+
+    let (sum : felt) = rec_sum_array(array_len, array, 0)
+    return (sum)
 end
 
 func rec_sum_array(array_len : felt, array : felt*, sum : felt) -> (sum : felt):
@@ -30,6 +33,17 @@ func rec_sum_array(array_len : felt, array : felt*, sum : felt) -> (sum : felt):
 
     # done:
     # ret
+
+    if array_len == 0:
+        return (sum)
+    end
+
+    tempvar number : felt = [array]
+    tempvar new_len = array_len-1
+    let new_array : felt* = array+1
+    tempvar new_sum = sum + number
+
+    return rec_sum_array(new_len, new_array, new_sum)
 end
 
 # TODO
@@ -43,6 +57,21 @@ func max{range_check_ptr}(a : felt, b : felt) -> (max : felt):
     # else:
     #     return (a)
     # end
+    [ap] = [fp-5]; ap++ # range_check_ptr
+    [ap] = [fp-4]; ap++ # a
+    [ap] = [fp-3]; ap++ # b
+    call is_le
+    [range_check_ptr] = [ap-2]
+
+    jmp returnB if [ap-1] != 0 ; ap++
+
+    returnA:
+    [ap] = Args.a; ap++
+    ret
+
+    returnB:
+        [ap] = Args.b; ap++
+        ret
 end
 
 #########
