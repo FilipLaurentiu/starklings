@@ -5,7 +5,6 @@
 # However, as hints are not part of the final Cairo bytecode, a malicious program may provide wrong results.
 # You should always verify computations done inside hints.
 
-# I AM NOT DONE
 
 # TODO: Compute the result of "x modulo n" inside a hint using python's `divmod`
 # Don't forget to make sure the result is correct.
@@ -16,12 +15,15 @@ func modulo(x : felt, n : felt) -> (mod : felt):
     local remainder
     %{
         # TODO: Compute the quotient and remainder inside the hint
+        result = divmod(x,n)
+        ids.quotient = result[0]
+        ids.remainder = result[1]
         print(ids.quotient)
         print(ids.remainder)
     %}
     # TODO: verify the result is correct
-
-    return (0)
+    assert n * quotient + remainder = x
+    return (remainder)
 end
 
 # Do not change the test
